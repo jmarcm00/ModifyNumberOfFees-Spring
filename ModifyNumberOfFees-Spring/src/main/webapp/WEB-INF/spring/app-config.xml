@@ -29,49 +29,49 @@
        <bean id="transactionManager"
        	class="es.unileon.ulebank.transacionManager.TransactionManager">
        </bean>
+       
        <bean id="genericHandler"
        	class="es.unileon.ulebank.handler.GenericHandler">
        	<constructor-arg value="1234"></constructor-arg>
        </bean>
+       
        <bean id="bank" class="es.unileon.ulebank.bank.Bank">
        	<constructor-arg ref="transactionManager"></constructor-arg>
        	<constructor-arg ref="genericHandler"></constructor-arg>
        </bean>
+       
        <bean id="office" class="es.unileon.ulebank.office.Office">
        	<constructor-arg ref="genericHandler"></constructor-arg>
        	<constructor-arg ref="bank"></constructor-arg>
        </bean>
+       
        <bean id="account" class="es.unileon.ulebank.account.Account">
        	<constructor-arg ref="office"></constructor-arg>
        	<constructor-arg ref="bank"></constructor-arg>
        	<constructor-arg value="0000000001"></constructor-arg>
-       	<!-- <property name="titulars">
-	      <list>
-	         <ref bean="client" />
-	      </list>
-	   </property> -->
        </bean>
+       
        <bean id="authorizedHandler1"
        	class="es.unileon.ulebank.handler.GenericHandler">
        	<constructor-arg value="Paco"></constructor-arg>
        </bean>
+       
        <bean id="client" class="es.unileon.ulebank.client.Client">
        	<constructor-arg ref="authorizedHandler1"></constructor-arg>
        </bean>
+       
        <bean id="fpHandler"
        	class="es.unileon.ulebank.assets.handler.FinancialProductHandler">
        	<constructor-arg value="LN"></constructor-arg>
        	<constructor-arg value="ES"></constructor-arg>
        </bean>
-       <!-- <bean id="paymentPeriod"
-       	class="es.unileon.ulebank.assets.support.PaymentPeriod">
-       	<constructor-arg value="1"></constructor-arg>
-       	<constructor-arg value="12"></constructor-arg>
-       </bean> -->
       
        <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
          <property name="basename" value="messages"/>
        </bean>
+       
+       <!-- Este archivo es el WebApplicationContext donde estan todos los 
+		componentes -->
 
        <!-- Scans the classpath of this application for @Components to deploy as beans -->
        <context:component-scan base-package="es.unileon.ulebank.web" />
@@ -79,6 +79,9 @@
        <!-- Configures the @Controller programming model -->
        <mvc:annotation-driven/>
 
+		<!-- Separa la vista y el controlador, mapeando con el prefijo y sufijo 
+		que le indicamos permitiendo utilizar nombres logicos para las vistas -->
+		
        <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
          <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
          <property name="prefix" value="/WEB-INF/views/"></property>

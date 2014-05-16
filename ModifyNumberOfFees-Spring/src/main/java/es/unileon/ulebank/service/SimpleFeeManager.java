@@ -2,8 +2,15 @@ package es.unileon.ulebank.service;
 
 import es.unileon.ulebank.assets.Loan;
 
+/**
+ * Simple Fee Manager Class
+ * @brief Class which manages the loan
+ */
 public class SimpleFeeManager implements FeeManager {
 	
+	/**
+	 * Loan which modifies from changeNumFees.jsp
+	 */
 	private Loan fees;
 	
 	@Override

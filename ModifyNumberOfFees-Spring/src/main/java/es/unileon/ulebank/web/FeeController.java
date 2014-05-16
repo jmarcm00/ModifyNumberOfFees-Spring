@@ -25,6 +25,12 @@ public class FeeController {
 	@Autowired
 	private FeeManager feeManager;
 
+	/**
+     * Method that create the Model and the View of changeNumFees.jsp
+     * @param request
+     * @param response
+     * @return
+     */
 	@RequestMapping(value = "/changeNumFees.htm")
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +45,10 @@ public class FeeController {
 		return new ModelAndView("changeNumFees", "model", myModel);
 	}
 
+	/**
+     * Setter of the feeManager
+     * @param feeManager
+     */
 	public void setProductManager(FeeManager feeManager) {
 		this.feeManager = feeManager;
 	}

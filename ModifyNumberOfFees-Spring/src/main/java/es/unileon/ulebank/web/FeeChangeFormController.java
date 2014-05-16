@@ -16,6 +16,10 @@ import org.apache.commons.logging.LogFactory;
 import es.unileon.ulebank.service.FeeChanges;
 import es.unileon.ulebank.service.FeeManager;
 
+/**
+ * Class Controller of the page feeLimits.jsp
+ * @brief Concrete controller of cashLimits.jsp which change the number of fees in the loan.
+ */
 @Controller
 @RequestMapping(value="/feeLimits.htm")
 public class FeeChangeFormController {
@@ -23,9 +27,16 @@ public class FeeChangeFormController {
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
 
+    /** Manager de loan */
     @Autowired
     private FeeManager feeManager;
 
+    /**
+     * Method that obtains the data of the form in feeLimits.jsp and save the changes in the loan
+     * @param feeChange
+     * @param result
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public String onSubmit(@Valid FeeChanges feeChange, BindingResult result)
     {
@@ -41,6 +52,12 @@ public class FeeChangeFormController {
         return "redirect:/changeNumFees.htm";
     }
 
+    /**
+     * Method that sends the number of fees in the loan to the form in feeLimits.jsp
+     * @param request
+     * @return
+     * @throws ServletException
+     */
     @RequestMapping(method = RequestMethod.GET)
     protected FeeChanges formBackingObject(HttpServletRequest request) throws ServletException {
     	FeeChanges numFees = new FeeChanges();
@@ -48,10 +65,18 @@ public class FeeChangeFormController {
         return numFees;
     }
 
+    /**
+     * Setter of the manager
+     * @param feeManager
+     */
     public void setProductManager(FeeManager feeManager) {
         this.feeManager = feeManager;
     }
 
+    /**
+     * Getter of the manager
+     * @return
+     */
     public FeeManager getProductManager() {
         return feeManager;
     }
