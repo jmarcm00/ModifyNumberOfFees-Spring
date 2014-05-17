@@ -4,18 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
-import org.junit.Test;
-
 import es.unileon.ulebank.account.Account;
-import es.unileon.ulebank.assets.strategy.commission.StrategyCommission;
+import es.unileon.ulebank.assets.Loan;
+import es.unileon.ulebank.assets.handler.FinancialProductHandler;
+import es.unileon.ulebank.assets.support.PaymentPeriod;
 import es.unileon.ulebank.bank.Bank;
-import es.unileon.ulebank.bank.BankHandler;
-import es.unileon.ulebank.client.Client;
 import es.unileon.ulebank.handler.GenericHandler;
-import es.unileon.ulebank.handler.Handler;
 import es.unileon.ulebank.office.Office;
 import es.unileon.ulebank.transacionManager.TransactionManager;
 
@@ -26,30 +21,42 @@ public class LoanTests {
 	private Bank bank;
 	private TransactionManager manager;
     private String accountNumber = "0000000000";
+    private Account account;
+    private FinancialProductHandler fPHandler;
+    private Loan loan;
 
     @Before
     public void setUp() throws Exception {
     	this.manager = new TransactionManager();
         this.bank = new Bank(manager, new GenericHandler("1234"));
         this.office = new Office(new GenericHandler("1234"), this.bank);
-		Account account = new Account(office, bank, accountNumber);
-
+		this.account = new Account(office, bank, accountNumber);
+		this.fPHandler = new FinancialProductHandler("LN", "ES");
+		this.loan = new Loan(fPHandler, 3000, 0.05, PaymentPeriod.MONTHLY, 30, account);
     }
-
-    @Test
-    public void testSetAndGetDescription() {
-        /*String testDescription = "aDescription";
-        assertNull(card.getDescription());
-        card.setDescription(testDescription);
-        assertEquals(testDescription, card.getDescription());*/
+    
+    @Test(expected=NullPointerException.class)
+    public void testLoanNull() {
+    	loan = null;
+    	loan.getId();
     }
-
+    
     @Test
-    public void testSetAndGetPrice() {
-       /* double testPrice = 100.00;
-        assertEquals(0, 0, 0);    
-        card.setPrice(testPrice);
-        assertEquals(testPrice, card.getPrice(), 0);*/
+    public void testLoanNotNull() {
+    	assertTrue(this.loan != null);
+    }
+    
+    @Test
+    public void testPaymentsNotNull() {
+    	assertTrue(this.loan.calcPayments() != null);
+    }
+    
+    @Test
+    public void testSetAndGetAmortizationTime() {
+        int testFees = 10;
+        assertNotNull(loan.getAmortizationTime());
+        loan.setAmortizationTime(testFees);
+        assertEquals(testFees, loan.getAmortizationTime());
     }
 
 }
