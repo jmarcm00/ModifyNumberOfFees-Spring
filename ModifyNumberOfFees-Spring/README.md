@@ -1,4 +1,4 @@
-ModifyLimitisSpring
+ModifyNumberOfFees-Spring
 ===================
 
-Mini proyecto en Spring para modificar los limites de compra y sacar dinero de las tarjetas. Métodos de Pago
+Mini proyecto en Spring para cambiar el numero de cuotas en las que se quiere abonar un prestamo. Activos.
