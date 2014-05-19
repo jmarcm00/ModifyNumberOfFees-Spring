@@ -1,6 +1,9 @@
 package es.unileon.ulebank.service;
 
 import es.unileon.ulebank.assets.Loan;
+import es.unileon.ulebank.assets.command.Command;
+import es.unileon.ulebank.assets.command.CreateLoanCommand;
+import es.unileon.ulebank.assets.support.PaymentPeriod;
 
 /**
  * Simple Fee Manager Class
